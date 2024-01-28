@@ -1,6 +1,7 @@
 package com.medev.onlineexamportalbackend.controllers;
 
 import com.medev.onlineexamportalbackend.entity.Student;
+
 import com.medev.onlineexamportalbackend.service.StudentService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    private  final StudentService studentService;
+    private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
+
 
     @GetMapping
     public List<Student> getAllStudents(@RequestParam(name="grade", required = false) Long grade){
@@ -34,8 +36,6 @@ public class StudentController {
         }
     }
 
-
-
     @PostMapping
     public Student postStudent(@RequestBody Student student){
         return studentService.postStudent(student);
@@ -43,13 +43,13 @@ public class StudentController {
 
     @PutMapping("/{id}")
     public Student putStudentById(@PathVariable Long id, @RequestBody Student student){
-        // TODO endpoint to put data by studentId
-        return studentService.postStudent(student);
+
+        return studentService.putStudentById(id,student);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudentById(@PathVariable Long id){
-        // TODO endpoint to delete student by studentId
+    public Student deleteStudentById(@PathVariable Long id){
+        return studentService.deleteStudentById(id);
     }
 
 }

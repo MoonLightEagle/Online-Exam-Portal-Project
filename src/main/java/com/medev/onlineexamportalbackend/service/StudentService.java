@@ -55,7 +55,7 @@ public class StudentService {
         oldStudent.setContactPhone(student.getContactPhone());
         oldStudent.setFirstName(student.getFirstName());
         oldStudent.setLastName(student.getLastName());
-        return oldStudent;
+        return studentRepository.save(oldStudent);
 
     }
 

@@ -1,11 +1,9 @@
 package com.medev.onlineexamportalbackend.controllers;
 
+import com.medev.onlineexamportalbackend.entity.Exam;
 import com.medev.onlineexamportalbackend.entity.Student;
 import com.medev.onlineexamportalbackend.service.ExamService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,18 @@ public class ExamController {
         return examService.getStudentsByExamId(id);
     }
 
+    @PostMapping()
+    public Exam postExam(@RequestBody Exam exam){
+        return examService.postExam(exam);
+    }
+
+    @PutMapping("/{id}")
+    public Exam putExamById(@PathVariable Long id, @RequestBody Exam exam){
+        return examService.putExamById(id, exam);
+    }
+    @DeleteMapping("/{id}")
+    public Exam deleteExamById(@PathVariable Long id){
+        return examService.deleteExamById(id);
+    }
 
 }

@@ -14,7 +14,7 @@ public class Course {
     private String name;
     private String description;
 
-    @ManyToMany(fetch= FetchType.LAZY,
+    @ManyToMany(fetch= FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE

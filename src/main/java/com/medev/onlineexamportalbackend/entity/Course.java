@@ -1,11 +1,10 @@
 package com.medev.onlineexamportalbackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -15,7 +14,19 @@ public class Course {
     private String name;
     private String description;
 
-    // TODO student list
+    @ManyToMany(fetch= FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "student_courses",
+            joinColumns={@JoinColumn(name="id")},
+            inverseJoinColumns = {@JoinColumn(name = "student_id")})
+
+    private List<Student> students = new ArrayList<Student>();
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Teacher> teachers = new ArrayList<Teacher>();
 
     public Long getId() {
         return id;

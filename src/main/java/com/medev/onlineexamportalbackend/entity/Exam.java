@@ -12,8 +12,13 @@ public class Exam {
     private Long id;
     private Long teacherId;
     private String name;
-//    @ManyToMany(mappedBy = "question")
-//    private List<Question> questions;
+
+    @OneToMany(targetEntity = Question.class,
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "questions_exam",
+        joinColumns = {@JoinColumn(name = "id")},
+        inverseJoinColumns = {@JoinColumn(name="question_id")})
+    private List<Question> questions = new ArrayList<Question>();
 
     @ManyToMany(fetch= FetchType.LAZY,
     cascade = {
@@ -26,4 +31,7 @@ public class Exam {
 
     private List<Student> students = new ArrayList<Student>();
     private Long gradeId;
+
+
+
 }

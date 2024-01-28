@@ -18,7 +18,8 @@ public class Student {
 
     @ManyToMany(mappedBy = "students")
     private List<Exam> exams = new ArrayList<Exam>();
-
+    @ManyToMany(mappedBy = "students")
+    private List<Course> courses = new ArrayList<Course>();
 
     public Long getId() {
         return id;

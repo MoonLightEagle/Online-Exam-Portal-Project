@@ -4,13 +4,23 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
+    @Getter
     private Long id;
+
+    @Setter
+    @Getter
     private Long teacherId;
+
+    @Setter
+    @Getter
     private String name;
 
     @OneToMany(targetEntity = Question.class,
@@ -18,6 +28,8 @@ public class Exam {
     @JoinTable(name = "questions_exam",
         joinColumns = {@JoinColumn(name = "id")},
         inverseJoinColumns = {@JoinColumn(name="question_id")})
+    @Setter
+    @Getter
     private List<Question> questions = new ArrayList<Question>();
 
     @ManyToMany(fetch= FetchType.EAGER,
@@ -28,55 +40,12 @@ public class Exam {
     @JoinTable(name = "student_exams",
         joinColumns={@JoinColumn(name="id")},
         inverseJoinColumns = {@JoinColumn(name = "student_id")})
-
+    @Setter
+    @Getter
     private List<Student> students = new ArrayList<Student>();
+
+    @Setter
+    @Getter
     private Long gradeId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    public Long getGradeId() {
-        return gradeId;
-    }
-
-    public void setGradeId(Long gradeId) {
-        this.gradeId = gradeId;
-    }
 }

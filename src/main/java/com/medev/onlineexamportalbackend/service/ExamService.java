@@ -49,4 +49,9 @@ public class ExamService {
         var exam = examRepository.findById(examId).get();
         exam.getQuestions().add(question);
     }
+
+
+    public Exam getExamById(Long id) {
+        return examRepository.findById(id).get();
+    }
 }

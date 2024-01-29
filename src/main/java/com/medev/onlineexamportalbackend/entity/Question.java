@@ -23,5 +23,7 @@ public class Question {
 
     private byte answerId;
 
+    private Long points;
+
 
 }

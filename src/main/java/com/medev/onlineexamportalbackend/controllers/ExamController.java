@@ -15,7 +15,10 @@ public class ExamController {
     public ExamController(ExamService examService) {
         this.examService = examService;
     }
-
+    @GetMapping("/{id}")
+    public Exam getExamById(@PathVariable Long id){
+        return examService.getExamById(id);
+    }
     @GetMapping("/{id}/students")
     public List<Student> getStudentsByExamId(@PathVariable Long id){
         return examService.getStudentsByExamId(id);

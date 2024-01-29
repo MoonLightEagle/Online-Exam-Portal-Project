@@ -1,5 +1,7 @@
 package com.medev.onlineexamportalbackend.controllers;
 
+import com.medev.onlineexamportalbackend.dto.StudentCourseDTO;
+import com.medev.onlineexamportalbackend.entity.Student;
 import com.medev.onlineexamportalbackend.entity.Teacher;
 import com.medev.onlineexamportalbackend.service.TeacherService;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,11 @@ public class TeacherController {
     @PutMapping("/{id}")
     public Teacher putTeacherById(@PathVariable Long id, @RequestBody Teacher teacher){
         return teacherService.putTeacherById(id, teacher);
+    }
+
+    @PostMapping("/{id}/student/course")
+    public Student postStudentToCourse(@RequestBody StudentCourseDTO studentCourseDTO,@PathVariable Long id){
+        return teacherService.postStudentToCourse(studentCourseDTO,id);
     }
 
 }

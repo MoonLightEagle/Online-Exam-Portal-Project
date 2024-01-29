@@ -1,5 +1,6 @@
 package com.medev.onlineexamportalbackend.service;
 
+import com.medev.onlineexamportalbackend.dto.StudentCourseDTO;
 import com.medev.onlineexamportalbackend.entity.Student;
 import com.medev.onlineexamportalbackend.entity.Teacher;
 import com.medev.onlineexamportalbackend.repository.TeacherRepository;
@@ -11,9 +12,14 @@ import java.util.List;
 
 public class TeacherService {
     private final TeacherRepository teacherRepository;
+    private final CourseService courseService;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+    private final StudentService studentService;
+
+    public TeacherService(TeacherRepository teacherRepository, CourseService courseService, StudentService studentService) {
         this.teacherRepository = teacherRepository;
+        this.courseService = courseService;
+        this.studentService = studentService;
     }
 
     public Teacher postTeacher(Teacher teacher) {
@@ -46,5 +52,14 @@ public class TeacherService {
         oldTeacher.setFirstName(teacher.getFirstName());
         oldTeacher.setLastName(teacher.getLastName());
         return teacherRepository.save(oldTeacher);
+    }
+
+    public Student postStudentToCourse(StudentCourseDTO studentCourseDTO, Long teacherId) {
+
+        var teacher = teacherRepository.findById(teacherId).get();
+        if(teacher.getCourses().contains(studentCourseDTO.getCourseId())){
+            courseService.addStudentToCourse(studentCourseDTO.getStudentId(),studentCourseDTO.getCourseId());
+        }
+        return studentService.getStudentById(studentCourseDTO.getStudentId());
     }
 }

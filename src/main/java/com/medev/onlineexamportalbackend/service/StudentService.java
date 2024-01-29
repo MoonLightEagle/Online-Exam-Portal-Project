@@ -27,9 +27,9 @@ public class StudentService {
 
 
 
-    public Student getStudentById(Long id) throws BadRequestException {
-        return studentRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException("Student with ID " + id + " not found"));
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).get();
+
     }
 
     public List<Student> getStudentsByExamId(Long id) {

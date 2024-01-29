@@ -27,13 +27,11 @@ public class StudentController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getStudentById(@PathVariable Long id){
-        try {
-            Student student = studentService.getStudentById(id);
-            return ResponseEntity.ok(student);
-        } catch (BadRequestException e) {
-            return ResponseEntity.badRequest().body(null);  // Or return a custom error message
-        }
+    public Student getStudentById(@PathVariable Long id){
+
+        Student student = studentService.getStudentById(id);
+        return student;
+
     }
 
     @PostMapping

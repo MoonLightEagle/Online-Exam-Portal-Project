@@ -36,6 +36,9 @@ public class ResultService {
     private Long getMaxPointsFromExam(Long examId){
         Long maxPoints= 0L;
         for (Question q :examService.getExamById(examId).getQuestions()){
+            if(q.getPoints()==null){
+                continue;
+            }
             maxPoints+= q.getPoints();
         }
         return maxPoints;
@@ -45,9 +48,13 @@ public class ResultService {
         long pointsScored=0;
         long maxPoints=0;
         for(int i =0;i<answerDTO.getAnswersIds().size();i++){
-            maxPoints+=examService.getExamById(examId).getQuestions().get(i).getPoints();
+            Long points = examService.getExamById(examId).getQuestions().get(i).getPoints();
+            if(points == null){
+                continue;
+            }
+            maxPoints+=points;
             if(examService.getExamById(examId).getQuestions().get(i).getAnswerId() == answerDTO.getAnswersIds().get(i)){
-                pointsScored+=examService.getExamById(examId).getQuestions().get(i).getPoints();
+                pointsScored+=points;
             }
         }
         return (float) pointsScored /maxPoints*100;

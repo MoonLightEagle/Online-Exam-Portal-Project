@@ -20,9 +20,9 @@ public class StudentController {
 
 
     @GetMapping
-    public List<Student> getAllStudents(@RequestParam(name="grade", required = false) Long grade){
+    public List<Student> getAllStudents(){
 
-        return studentService.getAllStudents(grade);
+        return studentService.getAllStudents();
     }
 
 

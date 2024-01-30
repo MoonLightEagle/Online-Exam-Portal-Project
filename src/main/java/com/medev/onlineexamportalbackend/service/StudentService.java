@@ -16,15 +16,12 @@ public class StudentService {
     }
 
 
-    public List<Student> getAllStudents(Long grade) {
-        if (grade!=null){
-            return studentRepository.findAllByGrade(grade);
-        }else{
-            return studentRepository.findAll();
-        }
+    public List<Student> getAllStudents() {
+
+        return studentRepository.findAll();
+
 
     }
-
 
 
     public Student getStudentById(Long id) {
@@ -44,9 +41,9 @@ public class StudentService {
 
     public Student putStudentById(Long id, Student student) {
         Student oldStudent = null;
-        if(studentRepository.findById(id).isPresent()){
+        if (studentRepository.findById(id).isPresent()) {
             oldStudent = studentRepository.findById(id).get();
-        }else{
+        } else {
             // TODO need to return sort of error
             return null;
         }

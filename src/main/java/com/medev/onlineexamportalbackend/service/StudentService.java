@@ -1,59 +1,46 @@
 package com.medev.onlineexamportalbackend.service;
 
+import com.medev.onlineexamportalbackend.dto.CreateStudentRequest;
+import com.medev.onlineexamportalbackend.dto.UpdateStudentRequest;
 import com.medev.onlineexamportalbackend.entity.Student;
+import com.medev.onlineexamportalbackend.mapper.StudentMapper;
 import com.medev.onlineexamportalbackend.repository.StudentRepository;
-import org.apache.coyote.BadRequestException;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
-
+    private final StudentMapper studentMapper;
 
     public List<Student> getAllStudents() {
-
         return studentRepository.findAll();
-
-
     }
 
 
     public Student getStudentById(Long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
     }
 
     public List<Student> getStudentsByExamId(Long id) {
         return studentRepository.findByExams(id);
+        // TODO fix usage of this
     }
 
-
-    public Student postStudent(Student student) {
-        return studentRepository.save(student);
+    public Student createStudent(CreateStudentRequest createStudentRequest) {
+        return studentRepository.save(studentMapper.mapToStudent(createStudentRequest));
     }
 
-
-    public Student putStudentById(Long id, Student student) {
-        Student oldStudent = null;
-        if (studentRepository.findById(id).isPresent()) {
-            oldStudent = studentRepository.findById(id).get();
-        } else {
-            // TODO need to return sort of error
-            return null;
-        }
-        oldStudent.setEmail(student.getEmail());
-        oldStudent.setGrade(student.getGrade());
-        oldStudent.setContactPhone(student.getContactPhone());
-        oldStudent.setFirstName(student.getFirstName());
-        oldStudent.setLastName(student.getLastName());
+    @Transactional
+    public Student updateStudentById(Long id, UpdateStudentRequest updateStudentRequest) {
+        Student oldStudent = studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        studentMapper.mapToStudent(updateStudentRequest,oldStudent);
         return studentRepository.save(oldStudent);
-
     }
 
 

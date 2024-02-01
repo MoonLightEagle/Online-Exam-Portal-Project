@@ -15,7 +15,7 @@ public class QuestionService {
         this.examService = examService;
     }
 
-    public Question postQuestionByExamId(Long id, Question question) {
+    public Question createQuestionByExamId(Long id, Question question) {
         examService.addQuestionToExam(question,id);
         return questionRepository.save(question);
 

@@ -19,8 +19,14 @@ public class Grade {
 
     private String description;
 
+    @OneToMany(mappedBy = "grades")
+    private List<Course> courses = new ArrayList<Course>();
+
     @ManyToMany(mappedBy = "grades")
     private List<Teacher> teachers = new ArrayList<Teacher>();
+
+    @OneToMany(mappedBy = "grades")
+    private List<Student> students = new ArrayList<Student>();
 
 
 }

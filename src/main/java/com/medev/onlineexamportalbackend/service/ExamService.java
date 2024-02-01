@@ -24,8 +24,8 @@ public class ExamService {
     }
 
     public void addQuestionToExam(Long id, Question question){
-        var exam = examRepository.findById(id);
-
+        Exam exam = examRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        // TODO finish here
     }
 
     public Exam createExam(CreateExamRequest createExamRequest) {
@@ -33,7 +33,7 @@ public class ExamService {
     }
 
     public Exam deleteExamById(Long id) {
-        var oldExam = examRepository.findById(id).get();
+        Exam oldExam = examRepository.findById(id).get();
         examRepository.deleteById(id);
         return oldExam;
     }
@@ -47,7 +47,7 @@ public class ExamService {
     }
 
     public void addQuestionToExam(Question question, Long examId){
-        var exam = examRepository.findById(examId).get();
+        Exam exam = examRepository.findById(examId).get();
         exam.getQuestions().add(question);
     }
 

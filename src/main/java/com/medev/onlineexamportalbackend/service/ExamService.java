@@ -1,20 +1,23 @@
 package com.medev.onlineexamportalbackend.service;
 
+import com.medev.onlineexamportalbackend.dto.CreateExamRequest;
+import com.medev.onlineexamportalbackend.dto.UpdateExamRequest;
 import com.medev.onlineexamportalbackend.entity.Exam;
 import com.medev.onlineexamportalbackend.entity.Question;
 import com.medev.onlineexamportalbackend.entity.Student;
+import com.medev.onlineexamportalbackend.mapper.ExamMapper;
 import com.medev.onlineexamportalbackend.repository.ExamRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ExamService {
     private final ExamRepository examRepository;
-
-    public ExamService(ExamRepository examRepository) {
-        this.examRepository = examRepository;
-    }
+    private final ExamMapper examMapper;
 
     public List<Student> getStudentsByExamId(Long id) {
         return examRepository.findStudentsByExamId(id);
@@ -25,8 +28,8 @@ public class ExamService {
 
     }
 
-    public Exam postExam(Exam exam) {
-        return examRepository.save(exam);
+    public Exam createExam(CreateExamRequest createExamRequest) {
+        return examRepository.save(examMapper.mapToExam(createExamRequest));
     }
 
     public Exam deleteExamById(Long id) {
@@ -35,13 +38,11 @@ public class ExamService {
         return oldExam;
     }
 
-    public Exam putExamById(Long id, Exam exam) {
-        var oldExam = examRepository.findById(id).get();
-        oldExam.setGradeId(exam.getId());
-        oldExam.setName(exam.getName());
-        oldExam.setTeacherId(exam.getTeacherId());
-        examRepository.save(oldExam);
-        return oldExam;
+    @Transactional
+    public Exam updateExamById(Long id, UpdateExamRequest updateExamRequest) {
+        Exam oldExam = examRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        examMapper.mapToExam(updateExamRequest, oldExam);
+        return examRepository.save(oldExam);
 
     }
 
@@ -50,8 +51,7 @@ public class ExamService {
         exam.getQuestions().add(question);
     }
 
-
     public Exam getExamById(Long id) {
-        return examRepository.findById(id).get();
+        return examRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 }

@@ -1,26 +1,27 @@
 package com.medev.onlineexamportalbackend.controllers;
 
+import com.medev.onlineexamportalbackend.dto.CreateTeacherRequest;
 import com.medev.onlineexamportalbackend.dto.StudentCourseDTO;
+import com.medev.onlineexamportalbackend.dto.UpdateTeacherRequest;
 import com.medev.onlineexamportalbackend.entity.Student;
 import com.medev.onlineexamportalbackend.entity.Teacher;
 import com.medev.onlineexamportalbackend.service.TeacherService;
-import org.springframework.stereotype.Controller;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/teacher")
+@RequestMapping("/teachers")
+@RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;
 
-    public TeacherController(TeacherService teacherService) {
-        this.teacherService = teacherService;
-    }
-
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Teacher postTeacher(@RequestBody Teacher teacher){
-        return teacherService.postTeacher(teacher);
+    public Teacher createTeacher(@RequestBody CreateTeacherRequest createTeacherRequest){
+        return teacherService.createTeacher(createTeacherRequest);
     }
 
     @GetMapping
@@ -33,14 +34,16 @@ public class TeacherController {
         return teacherService.deleteTeacherById(id);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    public Teacher putTeacherById(@PathVariable Long id, @RequestBody Teacher teacher){
-        return teacherService.putTeacherById(id, teacher);
+    public Teacher updateTeacherById(@PathVariable Long id, @RequestBody UpdateTeacherRequest updateTeacherRequest){
+        return teacherService.updateTeacherById(id, updateTeacherRequest);
     }
 
-    @PostMapping("/{id}/student/course")
-    public Student postStudentToCourse(@RequestBody StudentCourseDTO studentCourseDTO,@PathVariable Long id){
-        return teacherService.postStudentToCourse(studentCourseDTO,id);
+    // TODO rework this endpoint
+    @PutMapping("/{id}/student/course")
+    public Student updateStudentToCourse(@RequestBody StudentCourseDTO studentCourseDTO,@PathVariable Long id){
+        return teacherService.updateStudentToCourse(studentCourseDTO,id);
     }
 
 }

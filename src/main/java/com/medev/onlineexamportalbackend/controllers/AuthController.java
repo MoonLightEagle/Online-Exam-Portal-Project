@@ -1,32 +1,27 @@
 package com.medev.onlineexamportalbackend.controllers;
 
-import com.medev.onlineexamportalbackend.dto.CreateUserRequest;
-import com.medev.onlineexamportalbackend.dto.UpdateUserRequest;
-import com.medev.onlineexamportalbackend.entity.User;
-import com.medev.onlineexamportalbackend.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.medev.onlineexamportalbackend.dto.AuthenticationRequest;
+import com.medev.onlineexamportalbackend.dto.AuthenticationResponse;
+import com.medev.onlineexamportalbackend.dto.RegisterRequest;
+import com.medev.onlineexamportalbackend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
-    private final UserService userService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(CreateUserRequest createUserRequest, HttpServletRequest request) {
-        String csrfToken = request.getAttribute(CsrfToken.class.getName()).toString();
+    private final AuthenticationService authenticationService;
 
-        return userService.createUser(createUserRequest);
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authenticationService.register(request));
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
-        userService.updateUser(id, updateUserRequest);
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }

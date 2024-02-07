@@ -9,4 +9,9 @@ spring:
   datasource:
     username: "postgres"
     password: "root"
-    url: "jdbc:postgresql://localhost:5432/examination_platform"
+    url: "jdbc:postgresql://localhost:5432/exam_platform"
+logging:
+  level:
+    org:
+      springframework:
+        security: debug

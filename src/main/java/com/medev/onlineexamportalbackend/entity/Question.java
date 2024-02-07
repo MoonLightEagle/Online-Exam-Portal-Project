@@ -1,20 +1,29 @@
 package com.medev.onlineexamportalbackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Setter
+@Getter
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String questionBody;
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
+
+    @ElementCollection
+    private List<String> options = new ArrayList<String>();
+
     private byte answerId;
+
+    private Long points;
+
+
 }

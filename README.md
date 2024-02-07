@@ -1,8 +1,5 @@
 # Online-Exam-Portal-Project
-HomeSpringBootProjectsOnline Exam Portal Project using Spring Boot + React JS + MySQL | Online Quiz System Project in Spring Boot
-Online Exam Portal Project using Spring Boot + React JS + MySQL | Online Quiz System Project in Spring Boot
-CODE WITH MURADJANUARY 14, 2024
-online exam portal project img
+Online Exam Portal Project using Spring Boot + React JS + PostrgesSQL | Online Quiz System Project in Spring Boot
 
 Online Exam Portal using Spring Boot, React JS & MySQL
 The Online Exam Portal or Online Quiz App Project using Spring Boot & React JS is a major  Full Stack application that can be used by any University to handle the Student Online Examination. Online Exam Portal is 3 3-module project i.e. Admin, Teacher & Student, where the Admin adds the multiple Grades in the application and after adding the Grades, he can add the Courses in the Grade for example in Grade (Engineering) multiple courses can be ther like Java, Python, Javascript, etc.
@@ -14,20 +11,20 @@ The Teacher can schedule the exam by entering the details like Exam name, Schedu
 In the end Admin, Grade Teachers & Student will be able to see the student results.
 # Technologies Used in Online Exam Portal
 1. Spring Boot (REST APIS)
-We have developed an Online Quiz App project using Spring Boot 3 and Spring Security 6.
+I have developed an Online Quiz App project using Spring Boot 3 and Spring Security 6.
 2. React JS (Frontend)
-3. MySQL for Database
+3. PostrgesSQL for Database
 4. Maven for project management
 5. Bootstrap (Styling)
 
 # Software Used in Online Quiz App Project
-1. STS (Spring Tool Suite)
-For developing our backend, an Online Exam project using Spring Boot, we have used STS (Spring Tool Suite) or Eclipse Ide. But yes, we can use other IDEs like Intellij Idea, NetBeans, etc.
+1. InteliJ 
+For developing our backend, an Online Exam project using Spring Boot, I have used InteliJ IDE. But yes, we can use other IDEs like Intellij Idea, NetBeans, etc.
 2. VS Code (Visual Studio Code)
 For developing our frontend, an Online Quiz App project using React JS, we have used VS Code (Visual Studio Code).
 3. PGAdmin 4
 For efficient querying and manipulation of data, we have used PgAdmin4. 
-Note: If we want to use databases other than Mysql like Postgresql or Oracle, etc. we can use that also, for that, we have to do the simple configuration.
+Note: If we want to use databases other than Postgresql like MySQL or Oracle, etc. we can use that also, for that, we have to do the simple configuration.
 
 #User Modules in Online Exam Portal Project
 The project basically has three user modules:
